@@ -26,5 +26,9 @@
     "eslint": "^8.44.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-promise": "^6.1.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "ph-municipalities": "^1.0.9"
   }
 }
