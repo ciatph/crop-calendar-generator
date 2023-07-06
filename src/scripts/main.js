@@ -6,12 +6,14 @@ const main = async () => {
   try {
     // CLI args input
     const input = getargs({
-      params: ['region'],
-      optional: ['region']
+      params: ['region', 'usedefault'],
+      optional: ['region', 'usedefault']
     })
 
     // Initialize class
-    const generator = new CroppingCalendarGenerator({ useLocal: false })
+    const useDefaultExcel = input?.usedefault ?? false
+    const generator = new CroppingCalendarGenerator({ useLocal: useDefaultExcel })
+    console.log('use default?', useDefaultExcel)
 
     // Region name from input or .env file
     const regionName = input?.region ?? process.env.REGION_NAME
@@ -34,6 +36,7 @@ const main = async () => {
 
     console.log('MUNICIPALITIES')
     console.log(municipalities)
+
     process.exit(0)
   } catch (err) {
     console.log(`[EROR]: ${err.message}`)

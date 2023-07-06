@@ -26,8 +26,9 @@ class CroppingCalendarGenerator {
     if (useLocal) {
       const localFile = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'data', 'day1.xlsx')
 
-      this.#file = new ExcelFile({ pathToFile: localFile })
-      this.#file.init()
+      this.#file = new ExcelFile({
+        pathToFile: localFile
+      })
     } else {
       this.#file = new ExcelFile({
         pathToFile: path.join(__dirname, '..', '..', 'tempdata.xlsx'),

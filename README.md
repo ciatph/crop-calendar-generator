@@ -37,7 +37,16 @@ Lists the static region names for selction, and the provinces and municipalities
 
 #### Example Usage
 `npm run generate --region='Region V'`<br>
-`npm run generate --region=Bangsamoro`
+`npm run generate --region=Bangsamoro`<br>
+`npm run generate --region='Region V' --usedefault=true`
+
+### Flags
+
+- `--region`
+  - Region name. Enclose region names with more than (1) one word between single quotes.
+- `--usedefault`
+  - Flag to download the latest PAGASA 10-day weather forecast Excel file (day1.xlsx) if `--usedefault=true`.
+  - Ommiting this flag will use [ph-municipalities's](https://www.npmjs.com/package/ph-municipalities) default (old, static) PAGASA 10-day weather forecast Excel file.
 
 ### `npm run lint`
 
