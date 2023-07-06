@@ -45,8 +45,8 @@ Lists the static region names for selction, and the provinces and municipalities
 - `--region`
   - Region name. Enclose region names with more than (1) one word between single quotes.
 - `--usedefault`
-  - Flag to download the latest PAGASA 10-day weather forecast Excel file (day1.xlsx) if `--usedefault=true`.
-  - Ommiting this flag will use [ph-municipalities's](https://www.npmjs.com/package/ph-municipalities) default (old, static) PAGASA 10-day weather forecast Excel file.
+  - Flag to use [ph-municipalities's](https://www.npmjs.com/package/ph-municipalities) local (old) Excel file as data source if `--usedefault=true`.
+  - Downloads the latest PAGASA 10-day weather forecast Excel file (day1.xlsx) by default if ommitted.
 
 ### `npm run lint`
 
