@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "engines": {
     "node": "18.14.2",
-    "npm": "8.5.0"
+    "npm": "9.5.0"
   },
   "description": "Generates random cropping calendar data for the municipalities of a selected region.",
   "main": "index.js",
