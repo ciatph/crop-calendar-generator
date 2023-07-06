@@ -26,14 +26,18 @@ The following dependecies are used for this project. Feel free to experiment usi
    | EXCEL_FILE_URL    | (Optional) Remote excel file's download URL.<br>If provided, the excel file will be downloaded and saved on the specified `pathToFile` local filesystem location during the `ExcelFile` class initialization.<br>Read on [Usage](#usage) for more information. |
    | SHEETJS_COLUMN    | Column name read by [sheetjs](https://sheetjs.com/) in an excel file.<br>This column contains the municipality and province names following the string pattern<br>`"municipalityName (provinceName)"`<br>Default value is `__EMPTY`                            |
    | SORT_ALPHABETICAL | Arranges the municipality names in alphabetical order.<br>Default value is `1`. Set to `0` to use the ordering as read from the Excel file.                                                                                                                    |
-   | PROVINCES | Comma-delimited province names |
-   | REGION_NAME | Region name (`"abbrev"` in the /data/regions.json file) |
+   | PROVINCES         | Comma-delimited province names                                                                                                                                                                                                                                 |
+   | REGION_NAME       | Region name (`"abbrev"` in the /data/regions.json file)                                                                                                                                                                                                        |
 
 ## Available Scripts
 
-### `npm start`
+### `npm run generate`
 
-Runs the main program.
+Lists the static region names for selction, and the provinces and municipalities of a selected province to the terminal.<br>
+
+#### Example Usage
+`npm run generate --region='Region V'`<br>
+`npm run generate --region=Bangsamoro`
 
 ### `npm run lint`
 

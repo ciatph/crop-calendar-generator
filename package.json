@@ -8,7 +8,7 @@
   "description": "Generates random cropping calendar data for the municipalities of a selected region.",
   "main": "index.js",
   "scripts": {
-    "start": "node src/main.js",
+    "generate": "node src/scripts/main.js",
     "lint": "eslint src",
     "lint:fix": "eslint . --fix"
   },

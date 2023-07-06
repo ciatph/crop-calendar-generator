@@ -8,7 +8,7 @@ class CroppingCalendarGenerator {
   #file = null
 
   /** JSON data containing the static regional provinces list */
-  #provinceList = null
+  #regionList = null
 
   /**
    * CroppingCalendarGenerator class constructor
@@ -19,8 +19,8 @@ class CroppingCalendarGenerator {
    */
   constructor ({ useLocal = true }) {
     // Load the static regional province list
-    const provinceListPath = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'data', 'regions.json')
-    this.#provinceList = readJSON(provinceListPath)
+    const regionListPath = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'data', 'regions.json')
+    this.#regionList = readJSON(regionListPath)
 
     // Load the municipalities list from local or remote source
     if (useLocal) {
@@ -43,8 +43,8 @@ class CroppingCalendarGenerator {
     return this.#file
   }
 
-  get provinces () {
-    return this.#provinceList
+  get regions () {
+    return this.#regionList
   }
 
   /**
