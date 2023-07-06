@@ -1,10 +1,14 @@
 {
   "name": "crop-calendar-generator",
   "version": "1.0.0",
+  "engines": {
+    "node": "18.14.2",
+    "npm": "9.5.0"
+  },
   "description": "Generates random cropping calendar data for the municipalities of a selected region.",
   "main": "index.js",
   "scripts": {
-    "start": "node src/main.js",
+    "generate": "node src/scripts/main.js",
     "lint": "eslint src",
     "lint:fix": "eslint . --fix"
   },
@@ -22,5 +26,9 @@
     "eslint": "^8.44.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-promise": "^6.1.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "ph-municipalities": "^1.0.9"
   }
 }
