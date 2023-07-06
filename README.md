@@ -33,7 +33,8 @@ The following dependecies are used for this project. Feel free to experiment usi
 
 ### `npm run generate`
 
-Lists the static region names for selction, and the provinces and municipalities of a selected province to the terminal.<br>
+This script lists the static region names for selction, and the provinces and municipalities of a selected province to the terminal.<br>
+It also generates a random cropping calendar for all municipalities of the selected region into a CSV file.
 
 #### Example Usage
 `npm run generate --region='Region V'`<br>
