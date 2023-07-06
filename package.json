@@ -1,0 +1,26 @@
+{
+  "name": "crop-calendar-generator",
+  "version": "1.0.0",
+  "description": "Generates random cropping calendar data for the municipalities of a selected region.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "lint": "eslint src",
+    "lint:fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ciatph/crop-calendar-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ciatph/crop-calendar-generator/issues"
+  },
+  "homepage": "https://github.com/ciatph/crop-calendar-generator#readme",
+  "devDependencies": {
+    "eslint": "^8.44.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-promise": "^6.1.1"
+  }
+}
