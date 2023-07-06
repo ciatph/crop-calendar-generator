@@ -1,6 +1,6 @@
 ## crop-calendar-generator
 
-Generates random cropping calendar data for the municipalities of a selected region.
+Generates random cropping calendar data for the municipalities of a selected region, using a PAGASA 10-day Weather Forecast Excel file as data source.
 
 ## Available Scripts
 
