@@ -8,8 +8,9 @@ const csv = require('fast-csv')
  */
 const csvWriter = (objectData, filePath) => {
   try {
-    const csvOut = fs.createWriteStream(filePath)
+    const csvOut = fs.createWriteStream(filePath, { encoding: 'utf8' })
     const csvStream = csv.format({ headers: true })
+    csvOut.write('\uFEFF') // Write BOM for Excel to detect UTF-8
 
     csvStream.pipe(csvOut)
 

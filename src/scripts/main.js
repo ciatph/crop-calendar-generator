@@ -45,4 +45,5 @@ const main = async () => {
   }
 }
 
-main()
+const TIMEOUT_MS = process.env.IS_DOCKER ? 5000 : 0
+setTimeout(() => main(), TIMEOUT_MS)
