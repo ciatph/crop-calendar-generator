@@ -32,10 +32,9 @@ const readJSON = (filePath) => {
 /**
  * Create a file at the given directory path.
  * @param {String} filePath - Full file path to a target existing (or not existing) file, complete with a file extension
- * @param {String} mode - Mode for creating the file. Default value is 'w' (write)
  * @throws {Error}
  */
-const createFile = (filePath, mode = '') => {
+const createFile = (filePath) => {
   try {
     // Delete file if it exists
     if (fs.existsSync(filePath)) {

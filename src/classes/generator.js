@@ -112,7 +112,7 @@ class CroppingCalendarGenerator {
 
     this.#crops.forEach((crop) => {
       for (let i = 0; i < provinces.length; i += 1) {
-        const temp = municipalities[provinces[i]].reduce((list, item, index) => {
+        const temp = municipalities[provinces[i]].reduce((list, item) => {
           // Province, municipality, crop
           const obj = {
             prov: provinces[i],
