@@ -29,12 +29,39 @@ The following dependecies are used for this project. Feel free to experiment usi
    | PROVINCES         | Comma-delimited province names                                                                                                                                                                                                                                 |
    | REGION_NAME       | Region name (`"abbrev"` in the /data/regions.json file)                                                                                                                                                                                                        |
 
+## Usage
+
+### 🟩 Using Node
+   - Run the Available Scripts using Node directly in the host machine.
+
+### 🐳 Alternate Usage Using Docker
+   - Build the Docker image and run the container.
+      ```sh
+      docker compose build
+      docker compose up -d
+      ```
+   - Add breakpoints in VS Code
+   - Run the `generate` script for Docker.
+      ```sh
+      docker exec -it ciatph-cc-generator npm run docker:generate
+      ```
+   - Press `Ctrl + Shift + D` to display the selection list of VS Code debug configurations.
+      - Select **Attach to Docker**
+   - To stop the container:
+      ```sh
+      docker compose down
+      ```
+
 ## Available Scripts
 
 ### `npm run generate`
 
 This script lists the static region names for selction, and the provinces and municipalities of a selected province to the terminal.<br>
 It also generates a random cropping calendar for all municipalities of the selected region into a CSV file.
+
+### `npm run docker:generate`
+
+Runs the `npm run generate` script with the `--inspect` flag, enabling it for debugging with breakpoints in VS Code when run inside a container.
 
 #### Example Usage
 `npm run generate --region='Region V'`<br>

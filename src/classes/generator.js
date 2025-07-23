@@ -24,7 +24,7 @@ class CroppingCalendarGenerator {
    */
   constructor ({ useLocal = true, crops = [] }) {
     // Load the static regional province list
-    const regionListPath = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'data', 'regions.json')
+    const regionListPath = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'config', 'regions.json')
     this.#regionList = readJSON(regionListPath)
 
     // Load the crops

@@ -9,7 +9,8 @@
   "scripts": {
     "generate": "node src/scripts/main.js",
     "lint": "eslint src",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "docker:generate": "export IS_DOCKER=true && node --inspect=0.0.0.0:9229 src/scripts/main.js"
   },
   "repository": {
     "type": "git",
