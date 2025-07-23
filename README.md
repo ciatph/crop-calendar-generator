@@ -7,9 +7,9 @@ The following dependecies are used for this project. Feel free to experiment usi
 
 1. Windows 10 64-bit OS
 2. nvm version 1.1.9 (for Windows)
-3. NodeJS LTS v18.14.2 installed using nvm
-   - node v18.14.2
-   - npm v8.5.0
+3. NodeJS LTS v22.14.0 installed using nvm
+   - node v22.14.0
+   - npm v10.9.2
 
 ## Installation
 
