@@ -72,7 +72,7 @@ class CroppingCalendarGenerator extends ExcelFile {
    * @param {number} [numCropSeasons] - (Optional) Number of cropping seasons. Defaults to `1`.
    */
   generateRandomCalendar (regionName, numCropSeasons = 1) {
-    const provinces = this.listRegions()
+    const provinces = this.listProvinces(regionName)
     const municipalities = this.listMunicipalities({ provinces })
     let objects = []
 
