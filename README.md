@@ -68,7 +68,9 @@ Runs the `npm run generate` script with the `--inspect` flag, enabling it for de
 #### Example Usage
 `npm run generate --region="Region V"`<br>
 `npm run generate --region=Bangsamoro`<br>
-`npm run generate --region="Region V" --usedefault=true`<br>
+`npm run generate --region="Region V" --usedefaultconfig`<br>
+`npm run generate --region="Negros Island Region" --usedefaultexcel`
+`npm run generate --region="Region II" --usedefaultexcel --usedefaultconfig`
 `npm run generate --region"Region V" --seasons=2`
 
 ### Flags
@@ -77,9 +79,11 @@ Runs the `npm run generate` script with the `--inspect` flag, enabling it for de
   - Region name. Enclose region names with more than (1) one word between single quotes.
 - `--seasons`
    - (Optional) Number of cropping seasons. Defaults to `1`.
-- `--usedefault`
-  - Flag to use [ph-municipalities's](https://www.npmjs.com/package/ph-municipalities) local (old) Excel file as data source if `--usedefault=true`.
+- `--usedefaultexcel`
+  - (Optional) Flag to use [ph-municipalities'](https://www.npmjs.com/package/ph-municipalities) local (old) Excel file as data source if provided with the `--usedefaultexcel` flag. Defaults to `false`
   - Downloads the latest PAGASA 10-day weather forecast Excel file (day1.xlsx) by default if ommitted.
+- `--usedefaultconfig`
+   - (Optional) Flag to use ph-municipalities' default [`regions.json`](https://github.com/ciatph/ph-municipalities/blob/dev/app/config/regions.json) configuration file for regions-to-province grouping if provided with the `--usedefaultconfig` flag. Defaults to `false`, using the custom regions settings at `/src/lib/scripts/regions_20250724.json` file.
 
 ### `npm run lint`
 
