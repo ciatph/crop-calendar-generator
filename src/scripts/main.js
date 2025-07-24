@@ -6,8 +6,8 @@ const main = async () => {
   try {
     // CLI args input
     const input = getargs({
-      params: ['region', 'usedefault'],
-      optional: ['region', 'usedefault']
+      params: ['region', 'usedefault', 'seasons'],
+      optional: ['region', 'usedefault', 'seasons']
     })
 
     // Initialize class
@@ -16,6 +16,7 @@ const main = async () => {
 
     // Region name from input or .env file
     const regionName = input?.region ?? process.env.REGION_NAME
+    const numSeasons = input?.seasons ? +input.seasons : 1
 
     // Download the latest remote Excel file from EXCEL_FILE_URL
     await generator.initRemote()
@@ -38,7 +39,7 @@ const main = async () => {
 
     // Generate random cropping calendar data for each municipality
     console.log(`\nGenerating a random cropping calendar for the ${regionName} region...`)
-    generator.generateRandomCalendar(regionName)
+    generator.generateRandomCalendar(regionName, numSeasons)
   } catch (err) {
     console.log(`[EROR]: ${err.message}`)
     process.exit(1)

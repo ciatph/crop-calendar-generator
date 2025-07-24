@@ -36,7 +36,7 @@ class CroppingCalendarGenerator {
 
     // Load the municipalities list from local or remote source
     if (useLocal) {
-      const localFile = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'data', 'day1.xlsx')
+      const localFile = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'config', 'day1.xlsx')
 
       this.#file = new ExcelFile({
         pathToFile: localFile
@@ -103,37 +103,42 @@ class CroppingCalendarGenerator {
 
   /**
    * Returns the cropping calendar of a province containing random crop stages per month, per municipality.
-   * @param {String} regionName - Region namme
+   * @param {string} regionName - Region namme
+   * @param {number} [numCropSeasons] - (Optional) Number of cropping seasons. Defaults to `1`.
    */
-  generateRandomCalendar (regionName) {
+  generateRandomCalendar (regionName, numCropSeasons = 1) {
     const provinces = this.#regionList.data.find(province => province.name === regionName)?.provinces ?? []
     const municipalities = this.#file.listMunicipalities({ provinces })
     let objects = []
 
-    this.#crops.forEach((crop) => {
-      for (let i = 0; i < provinces.length; i += 1) {
-        const temp = municipalities[provinces[i]].reduce((list, item) => {
-          // Province, municipality, crop
-          const obj = {
-            prov: provinces[i],
-            muni: item,
-            crop
+    const monthsInYear = 12
+
+    for (const crop of this.#crops) {
+      for (const prov of provinces) {
+        const muniList = municipalities[prov]
+
+        if (!muniList) continue
+
+        for (const muni of muniList) {
+          for (let season = 0; season < numCropSeasons; season++) {
+            const row = {
+              prov,
+              muni,
+              crop,
+            }
+
+            for (let month = 1; month <= monthsInYear; month++) {
+              const monthNum = String(month).padStart(2, '0')
+              row[`${monthNum}_15_CAL`] = this.getRandomCropStages()
+              row[`${monthNum}_30_CAL`] = this.getRandomCropStages()
+            }
+
+            objects.push(row)
           }
-
-          // Months
-          for (let j = 1; j <= 12; j += 1) {
-            const month = (j < 10) ? `0${j}` : j
-
-            obj[`${month}_15_CAL`] = this.getRandomCropStages()
-            obj[`${month}_30_CAL`] = this.getRandomCropStages()
-          }
-
-          return [...list, obj]
-        }, [])
-
-        objects = [...objects, ...temp]
+        }
       }
-    })
+    }
+
 
     // CSV file
     const csvFileName = `cropping_calendar_random_${regionName.toLowerCase()}_${new Date().getTime()}.csv`
