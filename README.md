@@ -45,7 +45,7 @@ The following dependecies are used for this project. Feel free to experiment usi
    - Add breakpoints in VS Code
    - Run the `generate` script for Docker.
       ```sh
-      docker exec -it ciatph-cc-generator npm run docker:generate
+      docker exec -it ciatph-cc-generator npm run docker:generate --region="Region V"
       ```
    - Press `Ctrl + Shift + D` to display the selection list of VS Code debug configurations.
       - Select **Attach to Docker**
@@ -66,14 +66,17 @@ It also generates a random cropping calendar for all municipalities of the selec
 Runs the `npm run generate` script with the `--inspect` flag, enabling it for debugging with breakpoints in VS Code when run inside a container.
 
 #### Example Usage
-`npm run generate --region='Region V'`<br>
+`npm run generate --region="Region V"`<br>
 `npm run generate --region=Bangsamoro`<br>
-`npm run generate --region='Region V' --usedefault=true`
+`npm run generate --region="Region V" --usedefault=true`<br>
+`npm run generate --region"Region V" --seasons=2`
 
 ### Flags
 
 - `--region`
   - Region name. Enclose region names with more than (1) one word between single quotes.
+- `--seasons`
+   - (Optional) Number of cropping seasons. Defaults to `1`.
 - `--usedefault`
   - Flag to use [ph-municipalities's](https://www.npmjs.com/package/ph-municipalities) local (old) Excel file as data source if `--usedefault=true`.
   - Downloads the latest PAGASA 10-day weather forecast Excel file (day1.xlsx) by default if ommitted.
