@@ -2,6 +2,8 @@ require('dotenv').config()
 const CroppingCalendarGenerator = require('../classes/generator')
 const getargs = require('../lib/getargs')
 
+const newRegionsConfig = require('./regions_20250724.json')
+
 const main = async () => {
   try {
     // CLI args input
@@ -12,7 +14,10 @@ const main = async () => {
 
     // Initialize class
     const useDefaultExcel = input?.usedefault ?? false
-    const generator = new CroppingCalendarGenerator({ useLocal: useDefaultExcel })
+    const generator = new CroppingCalendarGenerator(
+      { useLocal: useDefaultExcel },
+      newRegionsConfig
+    )
 
     // Region name from input or .env file
     const regionName = input?.region ?? process.env.REGION_NAME
