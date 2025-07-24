@@ -1,0 +1,16 @@
+services:
+  ciatph.cc-generator:
+    container_name: ciatph-cc-generator
+    image: ciatph/cc-generator
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/opt/app
+      - /opt/app/node_modules
+    ports:
+      - "9229:9229"
+    stdin_open: true
+    tty: true

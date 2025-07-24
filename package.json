@@ -2,15 +2,15 @@
   "name": "crop-calendar-generator",
   "version": "1.0.0",
   "engines": {
-    "node": "18.14.2",
-    "npm": "9.5.0"
+    "node": ">=22.0.0"
   },
   "description": "Generates random cropping calendar data for the municipalities of a selected region.",
   "main": "index.js",
   "scripts": {
     "generate": "node src/scripts/main.js",
     "lint": "eslint src",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "docker:generate": "export IS_DOCKER=true && node --inspect=0.0.0.0:9229 src/scripts/main.js"
   },
   "repository": {
     "type": "git",
@@ -22,14 +22,14 @@
     "url": "https://github.com/ciatph/crop-calendar-generator/issues"
   },
   "homepage": "https://github.com/ciatph/crop-calendar-generator#readme",
-  "devDependencies": {
-    "eslint": "^8.44.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-promise": "^6.1.1"
-  },
   "dependencies": {
-    "dotenv": "^16.3.1",
-    "fast-csv": "^4.3.6",
-    "ph-municipalities": "^1.0.9"
+    "dotenv": "^17.2.0",
+    "fast-csv": "^5.0.2",
+    "ph-municipalities": "^1.4.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.31.0",
+    "eslint": "^9.31.0",
+    "globals": "^16.3.0"
   }
 }

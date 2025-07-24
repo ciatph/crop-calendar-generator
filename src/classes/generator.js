@@ -16,16 +16,24 @@ class CroppingCalendarGenerator {
 
   /**
    * CroppingCalendarGenerator class constructor
-   * @typedef {Object} parameter
-   * @param {Bool} useLocal - Flag to use ph-municipalities's local (old) Excel file as data source.
+   * @typedef {object} parameter - Input parameter object
+   * @param {boolean} [parameter.useLocal] - (Optional) Flag to use ph-municipalities's local (old) Excel file as data source.
    *  - Defaults to "false".
    *  - Setting to "true" will download the remote Exel file from EXCEL_FILE_URL after calling this.initRemote()
-   * @param {String[]} crops - List of available crops
+   * @param {string[]} [parameter.crops] - (Optional) List of available crops
+   * @param {object} customRegionsConfig - (Optional) Customized ph-municipalities `regions.json` config to match the latest PAGASA seasonal provinces (from the PAGASA Rainfall Analysis table) to municipalities (from the 10-day weather forecast Excel) mapping
    */
-  constructor ({ useLocal = true, crops = [] }) {
-    // Load the static regional province list
-    const regionListPath = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'data', 'regions.json')
-    this.#regionList = readJSON(regionListPath)
+  constructor ({ useLocal = true, crops = [] }, customRegionsConfig = null) {
+    if (customRegionsConfig) {
+      // Use an updated regions.json regional province list
+      console.log('[LOG]: Using custom regions.json config')
+      this.#regionList = customRegionsConfig
+    } else {
+      // Load the default regional province list
+      console.log('[LOG]: Using the default regions.json config (possibly outdated)')
+      const regionListPath = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'config', 'regions.json')
+      this.#regionList = readJSON(regionListPath)
+    }
 
     // Load the crops
     for (let i = 0; i < crops.length; i += 1) {
@@ -34,19 +42,19 @@ class CroppingCalendarGenerator {
       }
     }
 
-    // Load the municipalities list from local or remote source
-    if (useLocal) {
-      const localFile = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'data', 'day1.xlsx')
+    const dataSource = useLocal ? 'LOCAL' : 'REMOTE'
+    console.log(`[LOG]: Loading Excel from ${dataSource} source`)
 
-      this.#file = new ExcelFile({
-        pathToFile: localFile
-      })
-    } else {
-      this.#file = new ExcelFile({
-        pathToFile: path.join(__dirname, '..', '..', 'tempdata.xlsx'),
-        url: process.env.EXCEL_FILE_URL
-      })
-    }
+    // Load the municipalities list from local or download from remote Excel source
+    const filePath = useLocal
+      ? path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'data', 'day1.xlsx')
+      : path.join(__dirname, '..', '..', 'tempDowloadExcel.xlsx')
+
+    this.#file = new ExcelFile({
+      pathToFile: filePath,
+      settings: this.#regionList,
+      ...(!useLocal && ({ url: process.env.EXCEL_FILE_URL }))
+    })
   }
 
   /**
@@ -72,9 +80,9 @@ class CroppingCalendarGenerator {
 
   /**
    * Get a random number within a range of numbers (inclusive)
-   * @param {Number} minimun - Minimum number in a range of numbers
-   * @param {Number} maximum - Maximum number in a range of numbers
-   * @returns {Number}
+   * @param {number} minimun - Minimum number in a range of numbers
+   * @param {number} maximum - Maximum number in a range of numbers
+   * @returns {number}
    */
   randomNumber (minimun, maximum) {
     const min = Math.ceil(minimun)
@@ -103,37 +111,42 @@ class CroppingCalendarGenerator {
 
   /**
    * Returns the cropping calendar of a province containing random crop stages per month, per municipality.
-   * @param {String} regionName - Region namme
+   * @param {string} regionName - Region namme
+   * @param {number} [numCropSeasons] - (Optional) Number of cropping seasons. Defaults to `1`.
    */
-  generateRandomCalendar (regionName) {
+  generateRandomCalendar (regionName, numCropSeasons = 1) {
     const provinces = this.#regionList.data.find(province => province.name === regionName)?.provinces ?? []
     const municipalities = this.#file.listMunicipalities({ provinces })
     let objects = []
 
-    this.#crops.forEach((crop) => {
-      for (let i = 0; i < provinces.length; i += 1) {
-        const temp = municipalities[provinces[i]].reduce((list, item, index) => {
-          // Province, municipality, crop
-          const obj = {
-            prov: provinces[i],
-            muni: item,
-            crop
+    const monthsInYear = 12
+
+    for (const crop of this.#crops) {
+      for (const prov of provinces) {
+        const muniList = municipalities[prov]
+
+        if (!muniList) continue
+
+        for (const muni of muniList) {
+          for (let season = 0; season < numCropSeasons; season++) {
+            const row = {
+              prov,
+              muni,
+              crop,
+            }
+
+            for (let month = 1; month <= monthsInYear; month++) {
+              const monthNum = String(month).padStart(2, '0')
+              row[`${monthNum}_15_CAL`] = this.getRandomCropStages()
+              row[`${monthNum}_30_CAL`] = this.getRandomCropStages()
+            }
+
+            objects.push(row)
           }
-
-          // Months
-          for (let j = 1; j <= 12; j += 1) {
-            const month = (j < 10) ? `0${j}` : j
-
-            obj[`${month}_15_CAL`] = this.getRandomCropStages()
-            obj[`${month}_30_CAL`] = this.getRandomCropStages()
-          }
-
-          return [...list, obj]
-        }, [])
-
-        objects = [...objects, ...temp]
+        }
       }
-    })
+    }
+
 
     // CSV file
     const csvFileName = `cropping_calendar_random_${regionName.toLowerCase()}_${new Date().getTime()}.csv`

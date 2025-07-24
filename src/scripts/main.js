@@ -2,20 +2,26 @@ require('dotenv').config()
 const CroppingCalendarGenerator = require('../classes/generator')
 const getargs = require('../lib/getargs')
 
+const newRegionsConfig = require('./regions_20250724.json')
+
 const main = async () => {
   try {
     // CLI args input
     const input = getargs({
-      params: ['region', 'usedefault'],
-      optional: ['region', 'usedefault']
+      params: ['region', 'usedefault', 'seasons'],
+      optional: ['region', 'usedefault', 'seasons']
     })
 
     // Initialize class
     const useDefaultExcel = input?.usedefault ?? false
-    const generator = new CroppingCalendarGenerator({ useLocal: useDefaultExcel })
+    const generator = new CroppingCalendarGenerator(
+      { useLocal: useDefaultExcel },
+      newRegionsConfig
+    )
 
     // Region name from input or .env file
     const regionName = input?.region ?? process.env.REGION_NAME
+    const numSeasons = input?.seasons ? +input.seasons : 1
 
     // Download the latest remote Excel file from EXCEL_FILE_URL
     await generator.initRemote()
@@ -38,11 +44,12 @@ const main = async () => {
 
     // Generate random cropping calendar data for each municipality
     console.log(`\nGenerating a random cropping calendar for the ${regionName} region...`)
-    generator.generateRandomCalendar(regionName)
+    generator.generateRandomCalendar(regionName, numSeasons)
   } catch (err) {
     console.log(`[EROR]: ${err.message}`)
     process.exit(1)
   }
 }
 
-main()
+const TIMEOUT_MS = process.env.IS_DOCKER ? 5000 : 0
+setTimeout(() => main(), TIMEOUT_MS)
