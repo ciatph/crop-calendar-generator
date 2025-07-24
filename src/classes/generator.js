@@ -42,21 +42,19 @@ class CroppingCalendarGenerator {
       }
     }
 
-    // Load the municipalities list from local or remote source
-    if (useLocal) {
-      const localFile = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'data', 'day1.xlsx')
+    const dataSource = useLocal ? 'LOCAL' : 'REMOTE'
+    console.log(`[LOG]: Loading Excel from ${dataSource} source`)
 
-      this.#file = new ExcelFile({
-        pathToFile: localFile,
-        settings: customRegionsConfig
-      })
-    } else {
-      this.#file = new ExcelFile({
-        pathToFile: path.join(__dirname, '..', '..', 'tempdata.xlsx'),
-        url: process.env.EXCEL_FILE_URL,
-        settings: customRegionsConfig
-      })
-    }
+    // Load the municipalities list from local or download from remote Excel source
+    const filePath = useLocal
+      ? path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'data', 'day1.xlsx')
+      : path.join(__dirname, '..', '..', 'tempDowloadExcel.xlsx')
+
+    this.#file = new ExcelFile({
+      pathToFile: filePath,
+      settings: this.#regionList,
+      ...(!useLocal && ({ url: process.env.EXCEL_FILE_URL }))
+    })
   }
 
   /**
