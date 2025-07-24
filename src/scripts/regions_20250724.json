@@ -1,0 +1,141 @@
+{
+  "metadata": {
+    "sources": [
+      "https://www.pagasa.dost.gov.ph/climate/climate-prediction/seasonal-forecast",
+      "https://www.pagasa.dost.gov.ph/climate/climate-prediction/10-day-climate-forecast",
+      "https://en.wikipedia.org/wiki/Regions_of_the_Philippines"
+    ],
+    "title": "List of Philippine Provinces by Regions",
+    "description": "This dataset is a list of provinces in the Philippines grouped by regions. Region data was manually encoded using the PAGASA source URLs as the primary source of information and Wikipedia as a secondary source. The final region data are adjusted to sync with the PAGASA 10-Day Weather Forecast Excel files (2nd source).",
+    "date_created": "20220809",
+    "date_updated": "20240824"
+  },
+  "data": [
+    {
+      "name": "Region I",
+      "abbrev": null,
+      "region_num": "1",
+      "region_name": "Ilocos",
+      "provinces": ["Ilocos Norte","Ilocos Sur","La Union","Pangasinan"]
+    },
+    {
+      "name": "Region II",
+      "abbrev": null,
+      "region_num": "2",
+      "region_name": "Cagayan Valley",
+      "provinces": ["Batanes","Cagayan","Isabela","Nueva Vizcaya","Quirino"]
+    },
+    {
+      "name": "Region III",
+      "abbrev": null,
+      "region_num": "3",
+      "region_name": "Central Luzon",
+      "provinces": ["Bataan","Bulacan","Nueva Ecija","Pampanga","Tarlac","Zambales","Aurora"]
+    },
+    {
+      "name": "Region IV-A",
+      "abbrev": "CALABARZON",
+      "region_num": "4A",
+      "region_name": "CALABARZON",
+      "provinces": ["Batangas","Cavite","Laguna","Rizal","Quezon"]
+    },
+    {
+      "name": "Region IV-B",
+      "abbrev": "MIMAROPA",
+      "region_num": "4B",
+      "region_name": "MIMAROPA",
+      "provinces": ["Marinduque","Occidental Mindoro","Oriental Mindoro","Romblon","Palawan","Spratly Islands"]
+    },
+    {
+      "name": "Region V",
+      "abbrev": null,
+      "region_num": "5",
+      "region_name": "Bicol",
+      "provinces": ["Albay","Camarines Norte","Camarines Sur","Catanduanes","Masbate","Sorsogon"]
+    },
+    {
+      "name": "Region VI",
+      "abbrev": null,
+      "region_num": "6",
+      "region_name": "Western Visayas",
+      "provinces": ["Aklan","Antique","Capiz","Guimaras","Iloilo"]
+    },
+    {
+      "name": "Negros Island Region",
+      "abbrev": "NIR",
+      "region_num": "6",
+      "region_name": "NIR",
+      "provinces": ["Negros Occidental", "Negros Oriental", "Siquijor"]
+    },
+    {
+      "name": "Region VII",
+      "abbrev": null,
+      "region_num": "7",
+      "region_name": "Central Visayas",
+      "provinces": ["Bohol","Cebu"]
+    },
+    {
+      "name": "Region VIII",
+      "abbrev": null,
+      "region_num": "8",
+      "region_name": "Eastern Visayas",
+      "provinces": ["Biliran","Eastern Samar","Leyte","Northern Samar","Samar","Southern Leyte"]
+    },
+    {
+      "name": "Region IX",
+      "abbrev": "ZAMPEN",
+      "region_num": "9",
+      "region_name": "Zamboanga Peninsula",
+      "provinces": ["Zamboanga del Norte","Zamboanga del Sur","Zamboanga Sibugay"]
+    },
+    {
+      "name": "Region X",
+      "abbrev": null,
+      "region_num": "10",
+      "region_name": "Northern Mindanao",
+      "provinces": ["Bukidnon","Camiguin","Lanao del Norte","Misamis Occidental","Misamis Oriental"]
+    },
+    {
+      "name": "Region XI",
+      "abbrev": null,
+      "region_num": "11",
+      "region_name": "Davao",
+      "provinces": ["Davao de Oro","Davao City","Davao del Norte","Davao del Sur","Davao Occidental","Davao Oriental"]
+    },
+    {
+      "name": "Region XII",
+      "abbrev": "SOCCSKSARGEN",
+      "region_num": "12",
+      "region_name": "SOCCSKSARGEN",
+      "provinces": ["South Cotabato","Cotabato","Sarangani","Sultan Kudarat"]
+    },
+    {
+      "name": "Region XIII",
+      "abbrev": "CARAGA",
+      "region_num": "13",
+      "region_name": "CARAGA",
+      "provinces": ["Agusan del Norte","Agusan del Sur","Dinagat Islands","Surigao del Norte","Surigao del Sur"]
+    },
+    {
+      "name": "National Capital Region",
+      "abbrev": "NCR",
+      "region_num": null,
+      "region_name": "National Capital Region",
+      "provinces": ["NCR"]
+    },
+    {
+      "name": "Cordillera Administrative Region",
+      "abbrev": "CAR",
+      "region_num": null,
+      "region_name": "Cordillera Administrative Region",
+      "provinces": ["Abra","Benguet","Ifugao","Apayao","Mountain Province","Kalinga"]
+    },
+    {
+      "name": "Bangsamoro",
+      "abbrev": "BARMM",
+      "region_num": null,
+      "region_name": "Bangsamoro Autonomous Region in Muslim Mindanao",
+      "provinces": ["Basilan","Maguindanao","Lanao del Sur","Sulu","Tawi-Tawi"]
+    }
+  ]
+}

@@ -16,16 +16,24 @@ class CroppingCalendarGenerator {
 
   /**
    * CroppingCalendarGenerator class constructor
-   * @typedef {Object} parameter
-   * @param {Bool} useLocal - Flag to use ph-municipalities's local (old) Excel file as data source.
+   * @typedef {object} parameter - Input parameter object
+   * @param {boolean} [parameter.useLocal] - (Optional) Flag to use ph-municipalities's local (old) Excel file as data source.
    *  - Defaults to "false".
    *  - Setting to "true" will download the remote Exel file from EXCEL_FILE_URL after calling this.initRemote()
-   * @param {String[]} crops - List of available crops
+   * @param {string[]} [parameter.crops] - (Optional) List of available crops
+   * @param {object} customRegionsConfig - (Optional) Customized ph-municipalities `regions.json` config to match the latest PAGASA seasonal provinces (from the PAGASA Rainfall Analysis table) to municipalities (from the 10-day weather forecast Excel) mapping
    */
-  constructor ({ useLocal = true, crops = [] }) {
-    // Load the static regional province list
-    const regionListPath = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'config', 'regions.json')
-    this.#regionList = readJSON(regionListPath)
+  constructor ({ useLocal = true, crops = [] }, customRegionsConfig = null) {
+    if (customRegionsConfig) {
+      // Use an updated regions.json regional province list
+      console.log('[LOG]: Using custom regions.json config')
+      this.#regionList = customRegionsConfig
+    } else {
+      // Load the default regional province list
+      console.log('[LOG]: Using the default regions.json config (possibly outdated)')
+      const regionListPath = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'config', 'regions.json')
+      this.#regionList = readJSON(regionListPath)
+    }
 
     // Load the crops
     for (let i = 0; i < crops.length; i += 1) {
@@ -34,19 +42,19 @@ class CroppingCalendarGenerator {
       }
     }
 
-    // Load the municipalities list from local or remote source
-    if (useLocal) {
-      const localFile = path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'config', 'day1.xlsx')
+    const dataSource = useLocal ? 'LOCAL' : 'REMOTE'
+    console.log(`[LOG]: Loading Excel from ${dataSource} source`)
 
-      this.#file = new ExcelFile({
-        pathToFile: localFile
-      })
-    } else {
-      this.#file = new ExcelFile({
-        pathToFile: path.join(__dirname, '..', '..', 'tempdata.xlsx'),
-        url: process.env.EXCEL_FILE_URL
-      })
-    }
+    // Load the municipalities list from local or download from remote Excel source
+    const filePath = useLocal
+      ? path.join(__dirname, '..', '..', 'node_modules', 'ph-municipalities', 'data', 'day1.xlsx')
+      : path.join(__dirname, '..', '..', 'tempDowloadExcel.xlsx')
+
+    this.#file = new ExcelFile({
+      pathToFile: filePath,
+      settings: this.#regionList,
+      ...(!useLocal && ({ url: process.env.EXCEL_FILE_URL }))
+    })
   }
 
   /**
@@ -72,9 +80,9 @@ class CroppingCalendarGenerator {
 
   /**
    * Get a random number within a range of numbers (inclusive)
-   * @param {Number} minimun - Minimum number in a range of numbers
-   * @param {Number} maximum - Maximum number in a range of numbers
-   * @returns {Number}
+   * @param {number} minimun - Minimum number in a range of numbers
+   * @param {number} maximum - Maximum number in a range of numbers
+   * @returns {number}
    */
   randomNumber (minimun, maximum) {
     const min = Math.ceil(minimun)
